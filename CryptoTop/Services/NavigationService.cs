@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CryptoTop.Pages.Onboarding;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -29,6 +30,9 @@ public class NavigationService : INavigationService
     }
 
     public NavigationService(IServiceProvider services) => _services = services;
+
+    public Task NavigateToRegistrationPage() => NavigateToPage<RegistrationPage>();
+    public Task NavigateToLoginPage() => NavigateToPage<LoginPage>();
 
     public Task NavigateBack()
     {

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CryptoTop.Pages.Onboarding.RegistrationPage"
+             xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
+             xmlns:onboarding="clr-namespace:CryptoTop.Pages.Onboarding"
+             x:DataType="onboarding:RegistrationViewModel">
+    <ScrollView>
+        <VerticalStackLayout Padding="20,94,20,0">
+            <VerticalStackLayout.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding HideKeyboardCommand}"/>
+            </VerticalStackLayout.GestureRecognizers>
+            <Entry x:Name="HideKeyboardEntry" FontSize="20" IsVisible="False"></Entry>
+            <Label Text="Create account" TextTransform="Uppercase" FontSize="32" FontAttributes="Bold" FontFamily="RubikRegular" TextColor="Black" HorizontalOptions="Center"/>
+
+            <dxe:TextEdit Margin="0,33,0,18" Text="{Binding Email}" Keyboard="Email" TextFontSize="24" HeightRequest="70" PlaceholderText="Email" PlaceholderColor="#848B99" IsErrorIconVisible="False" ErrorColor="#E35858" ClearIconVisibility="Never" HasError="{Binding IsEmailInvalid}" BorderThickness="1" CornerRadius="8">
+                <dxe:TextEdit.Style>
+                    <Style TargetType="dxe:TextEdit">
+                        <Setter Property="PlaceholderColor" Value="#848B99"/>
+                        <Style.Triggers>
+                            <DataTrigger TargetType="dxe:TextEdit" Binding="{Binding IsEmailInvalid}" Value="True">
+                                <Setter Property="PlaceholderColor" Value="#F2564B"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </dxe:TextEdit.Style>
+            </dxe:TextEdit>
+            <dxe:PasswordEdit Text="{Binding Password}" TextFontSize="24" HeightRequest="70" ShowPasswordIcon="showpassword" PlaceholderText="Password" ErrorColor="#E35858" IsErrorIconVisible="False" ClearIconVisibility="Never" HasError="{Binding IsPasswordInvalid}" BorderThickness="1" CornerRadius="8">
+                <dxe:PasswordEdit.Style>
+                    <Style TargetType="dxe:PasswordEdit">
+                        <Setter Property="PlaceholderColor" Value="#848B99"/>
+                        <Setter Property="PasswordIconColor" Value="#848B99"/>
+                        <Style.Triggers>
+                            <DataTrigger TargetType="dxe:PasswordEdit" Binding="{Binding IsPasswordInvalid}" Value="True">
+                                <Setter Property="PlaceholderColor" Value="#F2564B"/>
+                                <Setter Property="PasswordIconColor" Value="#F2564B"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </dxe:PasswordEdit.Style>
+            </dxe:PasswordEdit>
+            <dxe:PasswordEdit Margin="0,18,0,0" Text="{Binding ConfirmPassword}" TextFontSize="24" HeightRequest="70" ShowPasswordIcon="showpassword" PlaceholderText="Confirm password" ErrorColor="#E35858" IsErrorIconVisible="False" ClearIconVisibility="Never" HasError="{Binding IsConfirmPasswordInvalid}" BorderThickness="1" CornerRadius="8">
+                <dxe:PasswordEdit.Style>
+                    <Style TargetType="dxe:PasswordEdit">
+                        <Setter Property="PlaceholderColor" Value="#848B99"/>
+                        <Setter Property="PasswordIconColor" Value="#848B99"/>
+                        <Style.Triggers>
+                            <DataTrigger TargetType="dxe:PasswordEdit" Binding="{Binding IsConfirmPasswordInvalid}" Value="True">
+                                <Setter Property="PlaceholderColor" Value="#F2564B"/>
+                                <Setter Property="PasswordIconColor" Value="#F2564B"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </dxe:PasswordEdit.Style>
+            </dxe:PasswordEdit>
+            <Label Margin="0,10,0,15" HeightRequest="24" Text="{Binding ErrorMessage}" FontSize="20" FontFamily="RubikRegular" TextColor="#E35858"/>
+            <Button Margin="0,20" Text="Create account" Command="{Binding NavigateToConfirmationCommand}" FontAttributes="Bold" FontSize="24" FontFamily="RubikRegular" CornerRadius="8" HeightRequest="70" BackgroundColor="#4F46E5"/>
+            <Button Margin="0,0,0,20" Text="Back to login" FontAttributes="Bold" Command="{Binding NavigateToLoginCommand}" FontSize="24" FontFamily="RubikRegular" TextColor="#4F46E5"  CornerRadius="8" HeightRequest="70" BackgroundColor="#F8FAFC" BorderColor="#4F46E5" BorderWidth="2"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

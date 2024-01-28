@@ -1,4 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
+using CommunityToolkit.Maui;
+using CryptoTop.Pages.Onboarding;
+using CryptoTop.Services;
+using DevExpress.Maui;
 
 namespace CryptoTop
 {
@@ -9,6 +13,8 @@ namespace CryptoTop
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseDevExpress()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -16,8 +22,16 @@ namespace CryptoTop
                 });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
+
+            builder.Services.AddTransient<LoginPage>();
+            builder.Services.AddTransient<LoginViewModel>();
+            builder.Services.AddTransient<RegistrationPage>();
+            builder.Services.AddTransient<RegistrationViewModel>();
+
+
+            builder.Services.AddSingleton<INavigationService, NavigationService>();
 
             return builder.Build();
         }

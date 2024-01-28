@@ -4,11 +4,26 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:CryptoTop"
+    xmlns:onboarding="clr-namespace:CryptoTop.Pages.Onboarding"
     Shell.FlyoutBehavior="Disabled">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <Shell.Resources>
+        <Style
+       TargetType="TabBar">
+            <Setter Property="Shell.TabBarBackgroundColor" 
+            Value="#0B1120" />
+            <Setter Property="Shell.TabBarUnselectedColor"
+        Value="#E4F1FF" />
+        </Style>
+    </Shell.Resources>
+    <TabBar x:Name="PhoneTabs">
+        <Tab Title="Prices" Icon="prices.svg">
+            <ShellContent ContentTemplate="{DataTemplate onboarding:LoginPage}"/>
+        </Tab>
+        <Tab Title="Policy" Icon="policy.svg">
+            <ShellContent ContentTemplate="{DataTemplate onboarding:RegistrationPage}"/>
+        </Tab>
+    </TabBar>
+
 
 </Shell>
