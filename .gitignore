@@ -1,0 +1,12 @@
+bin/
+obj/
+/packages/
+riderModule.iml
+/_ReSharper.Caches/
+.idea
+**/.idea
+**/node_modules
+.vs/
+*.user
+*.log
+.editorconfig
