@@ -1,0 +1,58 @@
+version: '3.4'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3.12.1-management
+    container_name: ${CONTAINER_PREFIX}cryptotop-rabbitmq
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
+    ports:
+      - ${RABBITMQ_SERVICE_PORT}:5672
+      - ${RABBITMQ_UI_PORT}:15672
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 30s
+      retries: 3
+
+  db:
+    image: mariadb:10.9
+    container_name: ${CONTAINER_PREFIX}cryptotop-maria-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${SQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${SQL_DB_NAME}
+      MYSQL_USER: ${SQL_DB_USER}
+      MYSQL_PASSWORD: ${SQL_DB_PASSWORD}
+    healthcheck:
+      test: mysql --user=${SQL_DB_USER} --password=${SQL_DB_PASSWORD} -e 'SHOW DATABASES;'
+      timeout: 5s
+      retries: 5
+    volumes:
+      - ./MariaDB:/docker-entrypoint-initdb.d
+    ports:
+      - ${MARIADB_PORT}:3306
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+      - db
+    container_name: ${CONTAINER_PREFIX}cryptotop-phpmyadmin
+    environment:
+      - PMA_HOST=db
+      - UPLOAD_LIMIT=300M
+    restart: always
+    ports:
+      - ${PHPMYADMIN_PORT}:80
+    volumes:
+      - /sessions
+    links:
+      - db
+
+  cryptotop.api.web:
+    image: ${DOCKER_REGISTRY-}cryptotopapiweb
+    build:
+      context: .
+      dockerfile: CryptoTop.Api.Web/Dockerfile

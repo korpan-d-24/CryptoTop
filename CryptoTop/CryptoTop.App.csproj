@@ -51,6 +51,11 @@
 		<PackageReference Include="CommunityToolkit.Maui" Version="6.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="DevExpress.Maui.Editors" Version="23.1.5" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.17" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.17">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 	</ItemGroup>
 
